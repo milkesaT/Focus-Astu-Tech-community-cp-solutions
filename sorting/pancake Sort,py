@@ -1,0 +1,19 @@
+class Solution:
+    def pancakeSort(self, arr: List[int]) -> List[int]:
+        def reverse(nums, k):
+            left, right = 0, k - 1
+            while left < right:
+                nums[left], nums[right] = nums[right], nums[left]
+                left += 1
+                right -= 1
+        res = []
+        n = len(arr)
+        for size in range(n, 1, -1):
+            max_idx = arr.index(max(arr[:size]))
+            if max_idx != size - 1:
+                if max_idx != 0:
+                    reverse(arr, max_idx + 1)
+                    res.append(max_idx + 1)
+                reverse(arr, size)
+                res.append(size)
+        return res
